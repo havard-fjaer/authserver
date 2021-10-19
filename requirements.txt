@@ -1,0 +1,10 @@
+python_jwt
+six
+pyjwt[crypto]
+# authlib.jose
+requests
+
+# Server:
+flask
+flask_restplus
+Werkzeug==0.16.1 # https://github.com/jarus/flask-testing/issues/143
