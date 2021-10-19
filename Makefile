@@ -9,7 +9,12 @@ run:
 docker-build: 
 	docker build -t havardfjaer/authserver:latest .
 docker-run: 
-	docker run -it havardfjaer/authserver:latest -p 8080:8080
+	docker run -d --name authserver havardfjaer/authserver:latest -p 127.0.0.1:8081:8081
+docker-stop:
+	docker container stop authserver
+	docker container rm authserver
 docker-push:
 	docker push havardfjaer/authserver:latest
+kube-redeploy-pod:
+	kubectl rollout restart deployment authserver
 

@@ -16,19 +16,19 @@ key = serialization.load_pem_public_key(public_key.encode())
 app = Flask(__name__)
 @app.route('/')
 @app.route('/<path:path>')
-def wildcard():
-    authorization = request.headers.get('Authorization')
-    token = authorization.replace("Bearer ", "")
+def wildcard(path):
     try:
+        authorization = request.headers.get('Authorization')
+        token = authorization.replace("Bearer ", "")
         jwt.decode(jwt=token, key=key, algorithms=['RS256', ])
     except Exception:
-        return Response(response="Access denied", status=401)
+        return Response(response="Unauthorized\n", status=401)
     else:
-        return Response(response="OK", status=200)
+        return Response(response="OK\n", status=200)
 
 @app.route("/livez")
 def livez():
-    return Response(response="It's alive!", status=200)
+    return Response(response="It's alive!\n", status=200)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
